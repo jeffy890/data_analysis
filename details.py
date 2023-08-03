@@ -3,7 +3,7 @@
     2023/8/2
 
     read README.md to get details
-    license info if in LICENSE.txt
+    license info if in LICENSE
 '''
 
 import csv
