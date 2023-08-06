@@ -4,5 +4,5 @@
 ## usage
 辞書の元となるデータが含まれているcsvを引数として渡す．
 ```
-python dict_create.py -k kaken.csv
+python dict_create.py -k hoge.csv
 ```
