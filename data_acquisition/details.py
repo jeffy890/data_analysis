@@ -243,15 +243,15 @@ def get_details(jsondata, id):
             
             for i in range(len(education_list)):
                 try:
-                    edu_affil = education_list[i]["affiliation"]["ja"]
+                    edu_affil = education_list[i]["affiliation"]["ja"].replace(" ", "")
                 except:
                     edu_affil = "?"
                 try:
-                    edu_depart = education_list[i]["department"]["ja"]
+                    edu_depart = education_list[i]["department"]["ja"].replace(" ", "")
                 except:
                     edu_depart = "?"
                 try:
-                    edu_course = education_list[i]["course"]["ja"]
+                    edu_course = education_list[i]["course"]["ja"].replace(" ", "")
                 except:
                     edu_course = "?"
                 try:
