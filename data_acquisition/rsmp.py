@@ -25,11 +25,13 @@ import pandas as pd
 import numpy as np
 
 import details as dt
+import education_extract as ee
 
 # settings and function call
 def main():
     # variables(global)
     filename_to_load = "kaken.csv"
+    filename_to_temp = "result_temp.csv"
     filename_to_save = "result.csv"
     
     scripts_option = 0
@@ -72,8 +74,13 @@ def main():
     # main sentences in this main function
     dt.check_jsondatadir()
     base_df = data_prepare(filename_to_load)
-    error = get_data(base_df, filename_to_save, scripts_option)
+    error = get_data(base_df, filename_to_temp, scripts_option)
 
+    try:
+        ee.education_extract(filename_to_temp, filename_to_save)
+    except:
+        error = 1
+        
     if error == 0:
         print("\neverything is now done")
         print("check the file: " + filename_to_save + "\n")
