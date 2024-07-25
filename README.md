@@ -3,6 +3,3 @@
 
 ## data_acquisition
 researchmapのデータを取得するスクリプト
-
-## dict_create
-分析用の辞書を作成するスクリプト

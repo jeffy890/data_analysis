@@ -16,46 +16,72 @@ def main():
 
 def education_extract(fn_to_l, fn_to_s):
     # file load
-    base_df = pd.read_csv(fn_to_l)
+    base_df = pd.read_csv(fn_to_l, dtype="object")
 
     #print(str(len(base_df.index)) + " loop will be executed")
 
     # adding educational columns
-    base_df["year1"] = np.nan
-    base_df["edu1"] = np.nan
-    base_df["year2"] = np.nan
-    base_df["edu2"] = np.nan
-    base_df["year3"] = np.nan
-    base_df["edu3"] = np.nan
+    base_df["year1"] = ""
+    base_df["edu1"] = ""
+    base_df["year2"] = ""
+    base_df["edu2"] = ""
+    base_df["year3"] = ""
+    base_df["edu3"] = ""
 
     edu_df = base_df["education"]
 
     
-    for i in range(len(base_df.index)):
+    # for i in range(len(base_df.index)):
+    #     temp_list = ["NaN", "NaN", "NaN", "NaN", "NaN", "NaN"]
+
+    #     if pd.isnull(edu_df[i]):
+    #         base_df["year1"][i] = "NaN"
+    #         base_df["edu1"][i] = "NaN"
+    #         base_df["year2"][i] = "NaN"
+    #         base_df["edu2"][i] = "NaN"
+    #         base_df["year3"][i] = "NaN"
+    #         base_df["edu3"][i] = "NaN"
+    #         continue
+
+    #     edu_temp = edu_df[i]
+    #     edu_temp = edu_temp.replace("[", "").replace("]", "").replace("'", "")
+    #     edu_temp = edu_temp.split(",")
+        
+    #     if len(edu_temp) != 1:
+    #         temp_list = extract(edu_temp)
+
+    #     base_df["year1"][i] = temp_list[0]
+    #     base_df["edu1"][i] = temp_list[1]
+    #     base_df["year2"][i] = temp_list[2]
+    #     base_df["edu2"][i] = temp_list[3]
+    #     base_df["year3"][i] = temp_list[4]
+    #     base_df["edu3"][i] = temp_list[5]
+
+    for index, row in base_df.iterrows():
         temp_list = ["NaN", "NaN", "NaN", "NaN", "NaN", "NaN"]
 
-        if pd.isnull(edu_df[i]):
-            base_df["year1"][i] = "NaN"
-            base_df["edu1"][i] = "NaN"
-            base_df["year2"][i] = "NaN"
-            base_df["edu2"][i] = "NaN"
-            base_df["year3"][i] = "NaN"
-            base_df["edu3"][i] = "NaN"
+        if pd.isnull(row["education"]):
+            base_df.at[index, "year1"] = "NaN"
+            base_df.at[index, "edu1"] = "NaN"
+            base_df.at[index, "year2"] = "NaN"
+            base_df.at[index, "edu2"] = "NaN"
+            base_df.at[index, "year3"] = "NaN"
+            base_df.at[index, "edu3"] = "NaN"
             continue
-
-        edu_temp = edu_df[i]
+        
+        edu_temp = row["education"]
         edu_temp = edu_temp.replace("[", "").replace("]", "").replace("'", "")
         edu_temp = edu_temp.split(",")
         
         if len(edu_temp) != 1:
             temp_list = extract(edu_temp)
 
-        base_df["year1"][i] = temp_list[0]
-        base_df["edu1"][i] = temp_list[1]
-        base_df["year2"][i] = temp_list[2]
-        base_df["edu2"][i] = temp_list[3]
-        base_df["year3"][i] = temp_list[4]
-        base_df["edu3"][i] = temp_list[5]
+        base_df.at[index, "year1"] = temp_list[0]
+        base_df.at[index, "edu1"] = temp_list[1]
+        base_df.at[index, "year2"] = temp_list[2]
+        base_df.at[index, "edu2"] = temp_list[3]
+        base_df.at[index, "year3"] = temp_list[4]
+        base_df.at[index, "edu3"] = temp_list[5]
 
     base_df.to_csv(fn_to_s, index=False, encoding="utf_8_sig")
 
@@ -67,7 +93,7 @@ def extract(got_list):
     append_list = ["NaN", "NaN", "NaN", "NaN", "NaN", "NaN"]
 
     firstone = got_list[0].split(" ")
-    print(firstone)
+    # print(firstone)
     append_list[0] = firstone[2]
     append_list[1] = firstone[3].replace("'", "")
 
